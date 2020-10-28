@@ -1,4 +1,4 @@
-function [m,centerX,centreY,width,length,order] = experiment_setup()
+function [m,centreX,centreY,width,length,order] = experiment_setup()
 
 %%%%%%%%%%%%%Number of regions%%%%%%%%%%%%%%%%%%%
 prompt = 'Enter the number of regions (less than 50)? ';
@@ -33,7 +33,23 @@ p = round(normrnd(mu,sigma));
 order = [];
 for i = 1:p
      edge1=round(1+ 9*rand); 
-     edge2=round(1+ 9*rand); 
+     edge2=round(1+ 9*rand);
+     if i ~= 1
+     a= ismember(order,[edge1,edge1]);
+     b = find(a(:,1));
+     while(not(isempty(b)))
+         edge1=round(1+ 9*rand); 
+         a= ismember(order,[edge1,edge1]);
+         b = find(a(:,1));
+     end
+     a= ismember(order,[edge2,edge2]);
+     b = find(a(:,2));
+     while(not(isempty(b)))
+         edge2=round(1+ 9*rand); 
+         a= ismember(order,[edge2,edge2]);
+         b = find(a(:,2));
+     end
+     end
      order = [order;[edge1,edge2]];
 end    
 end    
